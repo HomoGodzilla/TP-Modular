@@ -9,10 +9,10 @@ class Menu:
         self.LARGURA = LARGURA
         self.ALTURA = ALTURA
         self.fonte = pygame.font.SysFont(None, int(ALTURA * 0.1))
-        self.opcoes = ["JOGAR", "DESBLOQUEIOS", "SAIR"]
+        self.opcoes = ["JOGAR", "DESBLOQUEIOS","OPCOES", "SAIR"]
         self.selecionado = 0
 
-    def desenhar(self, tela):
+    def desenhar_menu(self, tela):
         tela.fill(PRETO)
         for i, opcao in enumerate(self.opcoes):
             cor = AMARELO if i == self.selecionado else BRANCO

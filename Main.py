@@ -36,10 +36,12 @@ def main():
                         jogo.loop_principal()
                     elif opcao == "DESBLOQUEIOS":
                         print("Desbloqueios ainda não implementados!")
+                    elif opcao == "OPCOES":
+                        print("Opções ainda não implementadas")
                     elif opcao == "SAIR":
                         em_menu = False
 
-        menu.desenhar(tela)
+        menu.desenhar_menu(tela)
         pygame.display.update()
         clock.tick(10)
 
