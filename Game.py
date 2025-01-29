@@ -3,14 +3,16 @@ import Fruta
 import Cobra
 
 # Configurações globais
-LARGURA, ALTURA = 600, 400
 TAMANHO_BLOCO = 20
 PRETO = (0, 0, 0)
 VERDE = (0, 255, 0)
 VERMELHO = (255, 0, 0)
 
 class Game:
-    def __init__(self):
+    def __init__(self,LARGURA,ALTURA,SCORE):
+        self.LARGURA = LARGURA
+        self.ALTURA = ALTURA
+        self.HIGHSCORE = SCORE
         pygame.init()
         self.tela = pygame.display.set_mode((LARGURA, ALTURA))
         pygame.display.set_caption("Jogo da Cobrinha")
@@ -22,7 +24,7 @@ class Game:
 
     def verificar_colisao(self):
         # Colisão com bordas
-        if self.cabeca.x < 0 or self.cabeca.x >= LARGURA or self.cabeca.y < 0 or self.cabeca.y >= ALTURA:
+        if self.cabeca.x < 0 or self.cabeca.x >= self.LARGURA or self.cabeca.y < 0 or self.cabeca.y >= self.ALTURA:
             self.running = False
 
         # Colisão com o corpo
@@ -66,5 +68,13 @@ class Game:
         pygame.quit()
 
 if __name__ == "__main__":
-    jogo = Game()
+    with open('settings.txt', 'r') as arquivo:
+        tosplit=arquivo.readline()
+        LARGURA=tosplit.split(" ")
+        tosplit=arquivo.readline()
+        ALTURA=tosplit.split(" ")
+        tosplit=arquivo.readline()
+        SCORE=tosplit.split(" ")
+        #FEIO PRA KRL, MAS TA FUNCIONANDO DPS EU ARRUMO
+    jogo = Game(int(LARGURA[1]),int(ALTURA[1]),int(SCORE[1]))
     jogo.loop_principal()
