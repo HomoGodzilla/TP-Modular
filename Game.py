@@ -30,6 +30,10 @@ class Game:
         self.running = True
         self.start_time = time.time()
         self.fonte = pygame.font.SysFont(None, int(ALTURA * 0.05))
+        self.textura_cabeca = pygame.image.load("./src/Cabeca.png")
+        self.textura_corpo = pygame.image.load("./src/Corpo.png")
+        self.textura_fruta = pygame.image.load("./src/Fruta.png")
+
 
     def verificar_colisao(self):
         if self.cabeca.x < 0 or self.cabeca.x >= self.JOGO_LARGURA or self.cabeca.y < 0 or self.cabeca.y >= self.JOGO_ALTURA:
@@ -49,7 +53,15 @@ class Game:
         self.tela.blit(score_text, (self.JOGO_LARGURA + 10, 20))
         self.tela.blit(tempo_text, (self.JOGO_LARGURA + 10, 60))
 
+    def desenhar_objetos(self,pos):
+        self.tela.blit(self.textura_fruta,[self.fruta.x, self.fruta.y])
+        for parte in self.corpo.partes:
+            self.tela.blit(self.textura_corpo, parte)
+        textura_cabeca_rotated = pygame.transform.rotate(self.textura_cabeca, pos*90)
+        self.tela.blit(textura_cabeca_rotated,[self.cabeca.x, self.cabeca.y])
+
     def loop_principal(self):
+        pos=0
         while self.running:
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT:
@@ -57,12 +69,16 @@ class Game:
                 elif evento.type == pygame.KEYDOWN:
                     if evento.key == pygame.K_UP:
                         self.cabeca.mudar_direcao(0, -TAMANHO_BLOCO)
+                        pos=0
                     elif evento.key == pygame.K_DOWN:
                         self.cabeca.mudar_direcao(0, TAMANHO_BLOCO)
+                        pos=2
                     elif evento.key == pygame.K_LEFT:
                         self.cabeca.mudar_direcao(-TAMANHO_BLOCO, 0)
+                        pos=1
                     elif evento.key == pygame.K_RIGHT:
                         self.cabeca.mudar_direcao(TAMANHO_BLOCO, 0)
+                        pos=3
 
             self.cabeca.mover()
             self.corpo.atualizar((self.cabeca.x, self.cabeca.y))
@@ -70,10 +86,8 @@ class Game:
             self.verificar_comida()
 
             self.tela.fill(PRETO)
-            pygame.draw.rect(self.tela, VERMELHO, [self.fruta.x, self.fruta.y, TAMANHO_BLOCO, TAMANHO_BLOCO])
-            for parte in self.corpo.partes:
-                pygame.draw.rect(self.tela, VERDE, [parte[0], parte[1], TAMANHO_BLOCO, TAMANHO_BLOCO])
-            pygame.draw.rect(self.tela, VERDE, [self.cabeca.x, self.cabeca.y, TAMANHO_BLOCO, TAMANHO_BLOCO])
+            self.desenhar_objetos(pos)
+        
 
             self.mostrar_informacoes()
             pygame.display.update()
