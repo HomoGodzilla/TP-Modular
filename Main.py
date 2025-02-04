@@ -10,11 +10,21 @@ def carregar_configuracoes():
         SCORE = int(linhas[2].split(" ")[1])
     return LARGURA, ALTURA, SCORE
 
+def atualizar_highscore(novo_highscore):
+    with open("settings.txt", "r") as arquivo:
+        linhas = arquivo.readlines()
+
+    linhas[2] = f"Highscore {novo_highscore}\n"
+
+    with open("settings.txt", "w") as arquivo:
+        arquivo.writelines(linhas)
+
 def main():
     LARGURA, ALTURA, SCORE = carregar_configuracoes()
+    last_score = SCORE
     pygame.init()
     tela = pygame.display.set_mode((LARGURA, ALTURA))
-    pygame.display.set_caption("Menu do Jogo da Cobrinha")
+    pygame.display.set_caption("Jogo da Cobrinha")
     clock = pygame.time.Clock()
 
     menu = Menu(LARGURA, ALTURA)
@@ -33,14 +43,16 @@ def main():
                     opcao = menu.selecionar()
                     if opcao == "JOGAR":
                         jogo = Game(LARGURA, ALTURA, SCORE)
-                        jogo.loop_principal()
+                        last_score=jogo.loop_principal()
                     elif opcao == "DESBLOQUEIOS":
                         print("Desbloqueios ainda não implementados!")
                     elif opcao == "OPCOES":
                         print("Opções ainda não implementadas")
                     elif opcao == "SAIR":
                         em_menu = False
-
+        if last_score>SCORE:
+            atualizar_highscore(last_score)
+            SCORE = last_score
         menu.desenhar_menu(tela)
         pygame.display.update()
         clock.tick(10)

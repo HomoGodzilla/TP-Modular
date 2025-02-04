@@ -22,7 +22,6 @@ class Game:
         self.JOGO_ALTURA = ALTURA
         pygame.init()
         self.tela = pygame.display.set_mode((LARGURA, ALTURA))
-        pygame.display.set_caption("Jogo da Cobrinha")
         self.clock = pygame.time.Clock()
         self.cabeca = Cobra.Cabeça(self.JOGO_LARGURA // 2, self.JOGO_ALTURA // 2)
         self.corpo = Cobra.Corpo()
@@ -49,9 +48,11 @@ class Game:
     def mostrar_informacoes(self):
         pygame.draw.rect(self.tela, CINZA, [self.JOGO_LARGURA, 0, self.INFO_LARGURA, self.ALTURA])
         score_text = self.fonte.render(f"Score: {len(self.corpo.partes)}", True, BRANCO)
+        highscore_text = self.fonte.render(f"Highscore: {self.HIGHSCORE}", True, BRANCO)
         tempo_text = self.fonte.render(f"Tempo: {int(time.time() - self.start_time)}s", True, BRANCO)
         self.tela.blit(score_text, (self.JOGO_LARGURA + 10, 20))
-        self.tela.blit(tempo_text, (self.JOGO_LARGURA + 10, 60))
+        self.tela.blit(highscore_text, (self.JOGO_LARGURA + 10, 60))
+        self.tela.blit(tempo_text, (self.JOGO_LARGURA + 10, 100))
 
     def desenhar_objetos(self,pos):
         self.tela.blit(self.textura_fruta,[self.fruta.x, self.fruta.y])
@@ -92,4 +93,6 @@ class Game:
             self.mostrar_informacoes()
             pygame.display.update()
             self.clock.tick(10)
+        self.HIGHSCORE = len(self.corpo.partes)
+        return self.HIGHSCORE
 
