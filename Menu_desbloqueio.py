@@ -34,13 +34,13 @@ SKINS = [
         "highscore": 100
     },
         {
-        "nome": "Skin Padrão",
+        "nome": "Skin Bowser",
         "arquivos": {
-            "cabeca": "skin_padrao_cabeca.png",
-            "corpo": "skin_padrao_corpo.png",
-            "fruta": "skin_padrao_fruta.png"
+            "cabeca": "skin_bowser_cabeca.png",
+            "corpo": "skin_goomba_corpo.png",
+            "fruta": "skin_estrela_fruta.png"
         },
-        "highscore": 0
+        "highscore": 150
     },
     {
         "nome": "Skin Vermelha",
