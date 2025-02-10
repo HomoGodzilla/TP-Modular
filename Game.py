@@ -13,7 +13,7 @@ AMARELO = (255, 255, 0)
 TAMANHO_BLOCO = 20
 
 class Game:
-    def __init__(self, LARGURA, ALTURA, SCORE):
+    def __init__(self, LARGURA, ALTURA, SCORE,skin):
         self.LARGURA = LARGURA
         self.ALTURA = ALTURA
         self.HIGHSCORE = SCORE
@@ -29,9 +29,9 @@ class Game:
         self.running = True
         self.start_time = time.time()
         self.fonte = pygame.font.SysFont(None, int(ALTURA * 0.05))
-        self.textura_cabeca = pygame.image.load("./src/Cabeca.png")
-        self.textura_corpo = pygame.image.load("./src/Corpo.png")
-        self.textura_fruta = pygame.image.load("./src/Fruta.png")
+        self.textura_corpo = skin["corpo"]
+        self.textura_cabeca = skin["cabeca"] 
+        self.textura_fruta = skin["fruta"]
 
 
     def verificar_colisao(self):

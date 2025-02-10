@@ -1,4 +1,5 @@
 import pygame
+import Menu_desbloqueio
 from Menu import Menu
 from Game import Game
 
@@ -26,6 +27,7 @@ def main():
     tela = pygame.display.set_mode((LARGURA, ALTURA))
     pygame.display.set_caption("Jogo da Cobrinha")
     clock = pygame.time.Clock()
+    skin_selecionada = Menu_desbloqueio.carregar_skins()
 
     menu = Menu(LARGURA, ALTURA)
     em_menu = True
@@ -42,10 +44,10 @@ def main():
                 elif evento.key == pygame.K_RETURN:
                     opcao = menu.selecionar()
                     if opcao == "JOGAR":
-                        jogo = Game(LARGURA, ALTURA, SCORE)
+                        jogo = Game(LARGURA, ALTURA, SCORE,skin_selecionada)
                         last_score=jogo.loop_principal()
                     elif opcao == "DESBLOQUEIOS":
-                        print("Desbloqueios ainda não implementados!")
+                        skin_selecionada = Menu_desbloqueio.selecionar_skin(SCORE,tela,LARGURA,ALTURA)
                     elif opcao == "OPCOES":
                         print("Opções ainda não implementadas")
                     elif opcao == "SAIR":
