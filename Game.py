@@ -28,7 +28,7 @@ class Game:
         self.fruta = Fruta.Fruta(self.JOGO_ALTURA, self.JOGO_LARGURA, TAMANHO_BLOCO)
         self.running = True
         self.start_time = time.time()
-        self.fonte = pygame.font.SysFont(None, int(ALTURA * 0.05))
+        self.fonte = pygame.font.Font("./font/VCR.ttf", int(ALTURA * 0.05))
         self.textura_corpo = skin["corpo"]
         self.textura_cabeca = skin["cabeca"] 
         self.textura_fruta = skin["fruta"]
@@ -47,12 +47,29 @@ class Game:
 
     def mostrar_informacoes(self):
         pygame.draw.rect(self.tela, CINZA, [self.JOGO_LARGURA, 0, self.INFO_LARGURA, self.ALTURA])
-        score_text = self.fonte.render(f"Score: {len(self.corpo.partes)}", True, BRANCO)
-        highscore_text = self.fonte.render(f"Highscore: {self.HIGHSCORE}", True, BRANCO)
-        tempo_text = self.fonte.render(f"Tempo: {int(time.time() - self.start_time)}s", True, BRANCO)
-        self.tela.blit(score_text, (self.JOGO_LARGURA + 10, 20))
-        self.tela.blit(highscore_text, (self.JOGO_LARGURA + 10, 60))
-        self.tela.blit(tempo_text, (self.JOGO_LARGURA + 10, 100))
+        #score_text = self.fonte.render(f"Score: {len(self.corpo.partes)}", True, BRANCO)
+        #highscore_text = self.fonte.render(f"Highscore: {self.HIGHSCORE}", True, BRANCO)
+        #tempo_text = self.fonte.render(f"Tempo: {int(time.time() - self.start_time)}s", True, BRANCO)
+        score_text = self.fonte.render("Score", True, BRANCO)
+        score_value = self.fonte.render(str(len(self.corpo.partes)), True, BRANCO)
+        
+        highscore_text = self.fonte.render("Highscore", True, BRANCO)
+        highscore_value = self.fonte.render(str(self.HIGHSCORE), True, BRANCO)
+        
+        tempo_text = self.fonte.render("Tempo", True, BRANCO)
+        tempo_value = self.fonte.render(f"{int(time.time() - self.start_time)}s", True, BRANCO)
+        #self.tela.blit(score_text, (self.JOGO_LARGURA + 10, 20))
+        #self.tela.blit(highscore_text, (self.JOGO_LARGURA + 10, 60))
+        #self.tela.blit(tempo_text, (self.JOGO_LARGURA + 10, 100))
+
+        self.tela.blit(score_text, (self.JOGO_LARGURA + 10, 10))
+        self.tela.blit(score_value, (self.JOGO_LARGURA + 10, 35))
+        
+        self.tela.blit(highscore_text, (self.JOGO_LARGURA + 10, 70))
+        self.tela.blit(highscore_value, (self.JOGO_LARGURA + 10, 95))
+        
+        self.tela.blit(tempo_text, (self.JOGO_LARGURA + 10, 130))
+        self.tela.blit(tempo_value, (self.JOGO_LARGURA + 10, 155))
 
     def desenhar_objetos(self,pos):
         self.tela.blit(self.textura_fruta,[self.fruta.x, self.fruta.y])

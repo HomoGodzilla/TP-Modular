@@ -8,7 +8,7 @@ class Menu:
     def __init__(self, LARGURA, ALTURA):
         self.LARGURA = LARGURA
         self.ALTURA = ALTURA
-        self.fonte = pygame.font.SysFont(None, int(ALTURA * 0.1))
+        self.fonte = pygame.font.Font("./font/VCR.ttf", int(ALTURA * 0.1))
         self.opcoes = ["JOGAR", "DESBLOQUEIOS","OPCOES", "SAIR"]
         self.selecionado = 0
 

@@ -102,7 +102,7 @@ def menu_desbloqueios(tela, highscore, LARGURA, ALTURA, selecionado):
 
     tela.fill(PRETO)
     
-    fonte = pygame.font.SysFont(None, 32)
+    fonte = pygame.font.Font("./font/VCR.ttf", 32)
     titulo = fonte.render("Desbloqueios", True, BRANCO)
     tela.blit(titulo, (50, 20))
 
@@ -115,7 +115,7 @@ def menu_desbloqueios(tela, highscore, LARGURA, ALTURA, selecionado):
     start_x = (LARGURA - total_largura) // 2
     start_y = (ALTURA - total_altura) // 2
 
-    fonte = pygame.font.SysFont(None, 24)
+    fonte = pygame.font.Font("./font/VCR.ttf", 16)
     fonte_negado = pygame.font.SysFont(None, 64)
     negado = fonte_negado.render("X", True, BRANCO)
 
