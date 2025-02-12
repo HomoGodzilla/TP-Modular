@@ -9,16 +9,18 @@ class Menu:
         self.LARGURA = LARGURA
         self.ALTURA = ALTURA
         self.fonte = pygame.font.Font("./font/VCR.ttf", int(ALTURA * 0.1))
-        self.opcoes = ["JOGAR", "DESBLOQUEIOS","OPCOES", "SAIR"]
+        self.opcoes = ["JOGAR", "SKINS", "SAIR"]
         self.selecionado = 0
 
     def desenhar_menu(self, tela):
-        tela.fill(PRETO)
+
+        tela.blit(pygame.image.load("./src/fundo_menu.png"), (0, 0))
+        pygame.draw.rect(tela, PRETO, [(self.LARGURA//2)-65, (self.ALTURA//2)-20, 135, 130])
         for i, opcao in enumerate(self.opcoes):
             cor = AMARELO if i == self.selecionado else BRANCO
             texto = self.fonte.render(opcao, True, cor)
             pos_x = self.LARGURA // 2 - texto.get_width() // 2
-            pos_y = self.ALTURA // 2 - texto.get_height() // 2 + i * int(self.ALTURA * 0.1)
+            pos_y = self.ALTURA // 2 - texto.get_height() // 2 + i * self.ALTURA * 0.1
             tela.blit(texto, (pos_x, pos_y))
 
     def mover_selecao(self, direcao):

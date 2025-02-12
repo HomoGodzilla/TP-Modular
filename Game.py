@@ -47,9 +47,7 @@ class Game:
 
     def mostrar_informacoes(self):
         pygame.draw.rect(self.tela, CINZA, [self.JOGO_LARGURA, 0, self.INFO_LARGURA, self.ALTURA])
-        #score_text = self.fonte.render(f"Score: {len(self.corpo.partes)}", True, BRANCO)
-        #highscore_text = self.fonte.render(f"Highscore: {self.HIGHSCORE}", True, BRANCO)
-        #tempo_text = self.fonte.render(f"Tempo: {int(time.time() - self.start_time)}s", True, BRANCO)
+
         score_text = self.fonte.render("Score", True, BRANCO)
         score_value = self.fonte.render(str(len(self.corpo.partes)), True, BRANCO)
         
@@ -58,9 +56,6 @@ class Game:
         
         tempo_text = self.fonte.render("Tempo", True, BRANCO)
         tempo_value = self.fonte.render(f"{int(time.time() - self.start_time)}s", True, BRANCO)
-        #self.tela.blit(score_text, (self.JOGO_LARGURA + 10, 20))
-        #self.tela.blit(highscore_text, (self.JOGO_LARGURA + 10, 60))
-        #self.tela.blit(tempo_text, (self.JOGO_LARGURA + 10, 100))
 
         self.tela.blit(score_text, (self.JOGO_LARGURA + 10, 10))
         self.tela.blit(score_value, (self.JOGO_LARGURA + 10, 35))
@@ -103,7 +98,7 @@ class Game:
             self.verificar_colisao()
             self.verificar_comida()
 
-            self.tela.fill(PRETO)
+            self.tela.blit(pygame.image.load("./src/fundo_jogo.png"), (0, 0))
             self.desenhar_objetos(pos)
         
 
