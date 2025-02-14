@@ -51,10 +51,10 @@ def main():
                     opcao = menu.selecionar()
                     if opcao == "JOGAR":
                         som_escolha.play()
-                        if som_menu:
-                            som_menu.stop()
+                        som_menu.stop()
                         jogo = Game(LARGURA, ALTURA, SCORE,skin_selecionada)
                         last_score=jogo.loop_principal()
+                        som_menu.play()
                     elif opcao == "SKINS":
                         som_escolha.play()
                         skin_selecionada = Skins.selecionar_skin(SCORE,tela,LARGURA,ALTURA,som_escolha)

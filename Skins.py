@@ -43,11 +43,11 @@ SKINS = [
         "highscore": 60
     },
     {
-        "nome": "Skin Dourada",
+        "nome": "Skin Sonic",
         "arquivos": {
-            "cabeca": "skin_dourada_cabeca.png",
-            "corpo": "skin_dourada_corpo.png",
-            "fruta": "skin_dourada_fruta.png"
+            "cabeca": "skin_sonic_cabeca.png",
+            "corpo": "skin_esmeralda_corpo.png",
+            "fruta": "skin_anel_fruta.png"
         },
         "highscore": 80
     },
