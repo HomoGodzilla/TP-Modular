@@ -28,6 +28,7 @@ class Game:
         self.fruta = Fruta.Fruta(self.JOGO_ALTURA, self.JOGO_LARGURA, TAMANHO_BLOCO)
         self.running = True
         self.start_time = time.time()
+        self.som_fruta = pygame.mixer.Sound("./sounds/fruta.mp3")
         self.fonte = pygame.font.Font("./font/VCR.ttf", int(ALTURA * 0.05))
         self.textura_corpo = skin["corpo"]
         self.textura_cabeca = skin["cabeca"] 
@@ -44,7 +45,8 @@ class Game:
         if self.cabeca.x == self.fruta.x and self.cabeca.y == self.fruta.y:
             self.fruta.reposicionar()
             self.corpo.crescer()
-
+            self.som_fruta.play()
+            
     def mostrar_informacoes(self):
         pygame.draw.rect(self.tela, CINZA, [self.JOGO_LARGURA, 0, self.INFO_LARGURA, self.ALTURA])
 
@@ -73,8 +75,31 @@ class Game:
         textura_cabeca_rotated = pygame.transform.rotate(self.textura_cabeca, pos*90)
         self.tela.blit(textura_cabeca_rotated,[self.cabeca.x, self.cabeca.y])
 
+    def gameover(self, tela, score, highscore):
+        fonte = pygame.font.Font("./font/VCR.ttf", 70)  # Fonte para o título
+        fonte_menor = pygame.font.Font("./font/VCR.ttf", 50)  # Fonte para o texto
+
+        tela.fill(PRETO)
+        # Texto do título
+        texto_gameover = fonte.render("Game Over", True, VERMELHO)
+        tela.blit(texto_gameover, (self.LARGURA // 2 - texto_gameover.get_width() // 2, 100))
+
+        # Texto do score
+        texto_score = fonte_menor.render(f"Score: {score}", True, BRANCO)
+        tela.blit(texto_score, (self.LARGURA // 2 - texto_score.get_width() // 2, 200))
+
+        # Verifica se é um novo highscore
+        if score > highscore:
+            texto_highscore = fonte_menor.render("New Highscore!", True, AMARELO)
+            tela.blit(texto_highscore, (self.LARGURA // 2 - texto_highscore.get_width() // 2, 250))
+
+        pygame.display.flip()
+        pygame.time.delay(3000)
+
+
     def loop_principal(self):
         pos=0
+        som_gameover = pygame.mixer.Sound("./sounds/gameover.mp3")
         while self.running:
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT:
@@ -100,11 +125,13 @@ class Game:
 
             self.tela.blit(pygame.image.load("./src/fundo_jogo.png"), (0, 0))
             self.desenhar_objetos(pos)
-        
 
             self.mostrar_informacoes()
             pygame.display.update()
             self.clock.tick(10)
+
+        som_gameover.play()
+        self.gameover(self.tela, len(self.corpo.partes), self.HIGHSCORE)
         self.HIGHSCORE = len(self.corpo.partes)
         return self.HIGHSCORE
 

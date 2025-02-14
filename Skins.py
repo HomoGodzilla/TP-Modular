@@ -22,7 +22,7 @@ SKINS = [
             "corpo": "skin_vermelha_corpo.png",
             "fruta": "skin_vermelha_fruta.png"
         },
-        "highscore": 50
+        "highscore": 20
     },
     {
         "nome": "Skin Dourada",
@@ -31,32 +31,32 @@ SKINS = [
             "corpo": "skin_dourada_corpo.png",
             "fruta": "skin_dourada_fruta.png"
         },
-        "highscore": 100
+        "highscore": 40
     },
-        {
+    {
+        "nome": "Skin Galinha",
+        "arquivos": {
+            "cabeca": "skin_galinha_cabeca.png",
+            "corpo": "skin_pintinho_corpo.png",
+            "fruta": "skin_milho_fruta.png"
+        },
+        "highscore": 60
+    },
+    {
+        "nome": "Skin Dourada",
+        "arquivos": {
+            "cabeca": "skin_dourada_cabeca.png",
+            "corpo": "skin_dourada_corpo.png",
+            "fruta": "skin_dourada_fruta.png"
+        },
+        "highscore": 80
+    },
+    {
         "nome": "Skin Bowser",
         "arquivos": {
             "cabeca": "skin_bowser_cabeca.png",
             "corpo": "skin_goomba_corpo.png",
             "fruta": "skin_estrela_fruta.png"
-        },
-        "highscore": 150
-    },
-    {
-        "nome": "Skin Vermelha",
-        "arquivos": {
-            "cabeca": "skin_vermelha_cabeca.png",
-            "corpo": "skin_vermelha_corpo.png",
-            "fruta": "skin_vermelha_fruta.png"
-        },
-        "highscore": 50
-    },
-    {
-        "nome": "Skin Dourada",
-        "arquivos": {
-            "cabeca": "skin_dourada_cabeca.png",
-            "corpo": "skin_dourada_corpo.png",
-            "fruta": "skin_dourada_fruta.png"
         },
         "highscore": 100
     },
@@ -71,7 +71,7 @@ def carregar_skins():
         }
     return SKINS[0]["texturas"]
 
-def selecionar_skin(highscore, tela, LARGURA, ALTURA):
+def selecionar_skin(highscore, tela, LARGURA, ALTURA,som):
     selecionado = 0
     menu_desbloqueios(tela, highscore, LARGURA,ALTURA, selecionado)
 
@@ -84,6 +84,7 @@ def selecionar_skin(highscore, tela, LARGURA, ALTURA):
                     return None
                 elif evento.key == pygame.K_RETURN:
                     if highscore >= SKINS[selecionado]["highscore"]:
+                        som.play()
                         return SKINS[selecionado]["texturas"]
                 elif evento.key == pygame.K_RIGHT and selecionado % 3 < 2:
                     selecionado += 1
